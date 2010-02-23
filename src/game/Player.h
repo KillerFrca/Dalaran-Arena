@@ -1021,6 +1021,8 @@ class MANGOS_DLL_SPEC Player : public Unit
 
         bool TeleportToBGEntryPoint();
 
+        void KnockWithAngle(float angle, float horizontalSpeed, float verticalSpeed);
+
         void SetSummonPoint(uint32 mapid, float x, float y, float z)
         {
             m_summon_expire = time(NULL) + MAX_PLAYER_SUMMON_DELAY;

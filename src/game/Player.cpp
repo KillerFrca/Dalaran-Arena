@@ -1846,6 +1846,20 @@ bool Player::TeleportToBGEntryPoint()
     return TeleportTo(m_bgData.joinPos);
 }
 
+void Player::KnockWithAngle(float angle, float horizontalSpeed, float verticalSpeed)
+{
+    float vsin = sin(angle);
+    float vcos = cos(angle);
+
+    WorldPacket data(SMSG_MOVE_KNOCK_BACK, 8+4+4+4+4+4);
+    data.append(GetPackGUID());
+    data << uint32(0);                                  // Sequence
+    data << float(vcos);                                // x direction
+    data << float(vsin);                                // y direction
+    data << float(horizontalSpeed);                     // Horizontal speed
+    data << float(-verticalSpeed);                      // Z Movement speed (vertical)
+    ((Player*)this)->GetSession()->SendPacket(&data);
+}
 void Player::ProcessDelayedOperations()
 {
     if(m_DelayedOperations == 0)
